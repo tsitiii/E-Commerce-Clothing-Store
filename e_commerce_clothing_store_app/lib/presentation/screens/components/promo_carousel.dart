@@ -9,27 +9,30 @@ class PromoCarousel extends StatefulWidget {
 
 class _PromoCarouselState extends State<PromoCarousel> {
   int _currentPage = 0;
-  final PageController _pageController = PageController(viewportFraction: 0.9);
+  final PageController _pageController = PageController(viewportFraction: 0.95);
 
   final List<Map<String, String>> _cards = [
     {
-      'image': '../../../../images/harry.jpg',
-      'title': 'Participate and get prizes',
+      'image': 'images/nike2.jpg',
       'subtitle': 'Prize pool 🎁',
       'description': 'Limited time offer! Join now!',
       'cta': 'Shop Now'
     },
     {
-      'image': '../../../../images/book2.jpg',
-      'title': 'Enter the contest',
+      'image': 'images/jacket.webp',
       'subtitle': 'Win the Cup🏆',
       'description': 'Exciting rewards await!',
       'cta': 'Enter Contest'
     },
     {
-      'image': '../../../../images/book1.jpeg',
-      'title': 'Special discount for winners',
-      'subtitle': '205 Off',
+      'image': 'images/ear.jpeg',
+      'subtitle': '20% Off',
+      'description': 'For children\'s books collection',
+      'cta': 'Claim Offer'
+    },
+    {
+      'image': 'images/jordan.jpeg',
+      'subtitle': '20% Off',
       'description': 'For children\'s books collection',
       'cta': 'Claim Offer'
     },
@@ -53,31 +56,23 @@ class _PromoCarouselState extends State<PromoCarousel> {
             itemCount: _cards.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: Card(
                   color: const Color.fromARGB(255, 101, 23, 226),
-                  elevation: 5,
+                  elevation: 6,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
                     children: [
                       Expanded(
+                        flex: 3,
                         child: Padding(
                           padding: const EdgeInsets.all(16),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                _cards[index]['title']!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
                               Text(
                                 _cards[index]['subtitle']!,
                                 style: const TextStyle(
@@ -101,7 +96,10 @@ class _PromoCarouselState extends State<PromoCarousel> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.amber,
                                   foregroundColor: Colors.black,
-                                  minimumSize: const Size(100, 30),
+                                  minimumSize: const Size(120, 30),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                 ),
                                 child: Text(
                                   _cards[index]['cta']!,
@@ -116,12 +114,12 @@ class _PromoCarouselState extends State<PromoCarousel> {
                       ),
                       ClipRRect(
                         borderRadius: const BorderRadius.horizontal(
-                            right: Radius.circular(12)),
+                            right: Radius.circular(16)),
                         child: Image.asset(
                           _cards[index]['image']!,
-                          width: 100,
-                          height: double.infinity,
-                          fit: BoxFit.cover,
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ],
@@ -131,22 +129,20 @@ class _PromoCarouselState extends State<PromoCarousel> {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              _cards.length,
-              (index) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentPage == index
-                      ? const Color.fromARGB(255, 23, 7, 255)
-                      : Colors.grey[300],
-                ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            _cards.length,
+            (index) => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentPage == index
+                    ? const Color.fromARGB(255, 23, 7, 255)
+                    : Colors.grey[300],
               ),
             ),
           ),

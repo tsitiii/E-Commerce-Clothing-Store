@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/featuredProducts.dart';
 import '../components/promo_carousel.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  final List<Map<String, dynamic>> products = [
+    {
+      'image': 'images/book1.jpeg',
+      'title': 'Book One',
+      'price': '120 Birr',
+    },
+    {
+      'image': 'images/book2.jpg',
+      'title': 'Book Two',
+      'price': '95 Birr',
+    },
+    {
+      'image': 'images/harry.jpg',
+      'title': 'Harry Potter',
+      'price': '150 Birr',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {},
               icon: ClipOval(
                 child: Image.asset(
-                  '../../../../images/abiy.jpg',
+                  'images/abiy.jpg',
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
@@ -83,6 +101,10 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20),
               const PromoCarousel(),
+              const SizedBox(
+                height: 20,
+              ),
+              FeaturedProducts(),
             ],
           ),
         ),

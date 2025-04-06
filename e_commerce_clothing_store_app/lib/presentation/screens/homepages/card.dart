@@ -13,21 +13,21 @@ class _CardPageState extends State<CardPage> {
 
   final List<Map<String, String>> _cards = [
     {
-      'image': '../../../../images/harry.jpg',
+      'image': 'images/harry.jpg',
       'title': 'Participate and get prizes',
       'subtitle': 'Prize pool 🎁',
       'description': 'Limited time offer! Join now!',
       'cta': 'Shop Now'
     },
     {
-      'image': '../../../../images/book2.jpg',
+      'image': 'images/book2.jpg',
       'title': 'Enter the contest',
       'subtitle': 'Win the Cup🏆',
       'description': 'Exciting rewards await!',
       'cta': 'Enter Contest'
     },
     {
-      'image': '../../../../images/book1.jpeg',
+      'image': 'images/book1.jpeg',
       'title': 'Special discount for winners',
       'subtitle': '205 Off',
       'description': 'For children\'s books collection',
@@ -123,7 +123,6 @@ class _CardPageState extends State<CardPage> {
                             ),
                           ),
                         ),
-                       
                         ClipRRect(
                           borderRadius: const BorderRadius.horizontal(
                               right: Radius.circular(12)),
