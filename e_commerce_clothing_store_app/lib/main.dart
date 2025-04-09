@@ -2,6 +2,8 @@ import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/log
 import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/signup.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/homepages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/search/search_screen.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/products/productList.dart';
 
 void main() {
   runApp(const MyApp());
