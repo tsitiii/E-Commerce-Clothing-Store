@@ -56,12 +56,12 @@ class FeaturedProducts extends StatelessWidget {
           child: GridView.builder(
             scrollDirection: Axis.horizontal,
             padding:
-                const EdgeInsets.symmetric(horizontal: 8), // Adjusted padding
+                const EdgeInsets.symmetric(horizontal: 8), 
             itemCount: products.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
-              mainAxisSpacing: 4, // Decreased vertical gap
-              crossAxisSpacing: 4, // Added horizontal gap
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
               childAspectRatio: 0.8,
             ),
             itemBuilder: (context, index) {
