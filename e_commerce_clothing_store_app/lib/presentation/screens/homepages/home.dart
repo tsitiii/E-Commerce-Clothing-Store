@@ -1,4 +1,7 @@
+import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/login.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/components/mostPopular.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/featuredProducts.dart';
 import '../components/promo_carousel.dart';
@@ -11,6 +14,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  String username = '';
+  String imageUrl = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserInfo();
+  }
+
+  void loadUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedUsername = prefs.getString('username');
+    final token = prefs.getString('token');
+    print("stored token:$token");
+    print("📦 Stored username: $storedUsername");
+
+    setState(() {
+      username = (storedUsername != null && storedUsername != 'null')
+          ? storedUsername
+          : 'User';
+      imageUrl = prefs.getString('imageUrl') ?? '';
+    });
+  }
+
   final List<Map<String, dynamic>> products = [
     {
       'image': 'images/book1.jpeg',
@@ -28,6 +55,7 @@ class _HomePageState extends State<HomePage> {
       'price': '150 Birr',
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,27 +64,50 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
               icon: ClipOval(
-                child: Image.asset(
-                  'images/abiy.jpg',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                ),
+                child: imageUrl.isNotEmpty && imageUrl != "null"
+                    ? (imageUrl.startsWith("http")
+                        ? Image.network(
+                            imageUrl,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            imageUrl,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ))
+                    : Container(
+                        color: Colors.grey[200],
+                        width: 50,
+                        height: 50,
+                        child: const Icon(
+                          Icons.person,
+                          size: 30,
+                          color: Colors.grey,
+                        ),
+                      ),
               ),
             ),
             const SizedBox(width: 10),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Hello",
                   style: TextStyle(fontSize: 12, color: Colors.black),
                 ),
                 Text(
-                  "User Name",
-                  style: TextStyle(
+                  username,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontSize: 16,
@@ -81,30 +132,36 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              TextFormField(
-                enableSuggestions: true,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                      width: 2,
+              // FIXED: Added SizedBox to constrain TextFormField height
+              SizedBox(
+                height: 60, // Explicit height constraint
+                child: TextFormField(
+                  enableSuggestions: true,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: Colors.blue,
+                        width: 2,
+                      ),
                     ),
+                    border: const OutlineInputBorder(),
+                    prefixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    ),
+                    label: const Text("search here"),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10), // Better text alignment
                   ),
-                  border: const OutlineInputBorder(),
-                  prefixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.search),
-                  ),
-                  label: const Text("search here"),
                 ),
               ),
               const SizedBox(height: 20),
               const PromoCarousel(),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               FeaturedProducts(),
+              const SizedBox(height: 10),
+              const MostPopular(),
             ],
           ),
         ),
@@ -112,32 +169,27 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home, color: Color.fromARGB(255, 98, 64, 251))),
+            label: 'Home',
+            icon: Icon(Icons.home, color: Color.fromARGB(255, 98, 64, 251)),
+          ),
           BottomNavigationBarItem(
-              label: 'Settings',
-              icon: Icon(Icons.search, color: Colors.blueGrey)),
+            label: 'Settings',
+            icon: Icon(Icons.search, color: Colors.blueGrey),
+          ),
           BottomNavigationBarItem(
-              label: 'Me', icon: Icon(Icons.shop, color: Colors.blueGrey)),
+            label: 'Shop',
+            icon: Icon(Icons.shop, color: Colors.blueGrey),
+          ),
           BottomNavigationBarItem(
-              label: 'Me', icon: Icon(Icons.person, color: Colors.blueGrey)),
+            label: 'Me',
+            icon: Icon(Icons.person, color: Colors.blueGrey),
+          ),
         ],
         currentIndex: currentIndex,
         onTap: (int index) {
-          // if (index == 1) {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => SettingPage(
-          //               onPostCreated: (imagePath, title, caption) {})));
-          // } else if (index == 2) {
-          //   Navigator.push(
-          //       context, MaterialPageRoute(builder: (context) => MePage()));
-          // } else {
-          //   setState(() {
-          //     currentIndex = index;
-          //   });
-          // }
+          setState(() {
+            currentIndex = index;
+          });
         },
       ),
     );
