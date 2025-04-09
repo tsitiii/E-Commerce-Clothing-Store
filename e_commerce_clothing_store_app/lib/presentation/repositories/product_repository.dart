@@ -13,8 +13,6 @@ class ProductRepository {
   });
 
   Future<List<Product>> searchProducts(ProductFilter filter) async {
-    // TODO: Implement actual API call
-    // This is a mock implementation
     await Future.delayed(const Duration(seconds: 1));
     return [
       Product(
