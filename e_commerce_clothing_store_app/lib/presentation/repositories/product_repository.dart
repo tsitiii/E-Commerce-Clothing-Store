@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/product.dart';
-import '../models/product_filter.dart';
+import '../../domain/entities/product_entity.dart';
+import '../../data/models/product_filter.dart';
+import '../../data/models/product_model.dart';
 
 class ProductRepository {
   final String baseUrl;
@@ -13,62 +14,44 @@ class ProductRepository {
     required this.client,
   });
 
-  Future<List<Product>> searchProducts(ProductFilter filter) async {
-    final response = await client.get(Uri.parse('$baseUrl/products'));
+  Future<List<ProductModel>> searchProducts(ProductFilter filter) async {
+    try {
+      final response = await client.get(Uri.parse('$baseUrl/products'));
 
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonList = json.decode(response.body);
-      List<Product> products = jsonList
-          .map((json) => Product(
-                id: json['id'].toString(),
-                name: json['title'],
-                price: (json['price'] as num).toDouble(),
-                imageUrl: json['image'],
-                brand: json['category'],
-                gender: _extractGender(json['category']),
-              ))
-          .toList();
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonList = json.decode(response.body);
+        List<ProductModel> products = jsonList.map((json) => 
+            ProductModel.fromJson(json)).toList();
 
-      // Apply filters
-      if (filter.query != null && filter.query!.isNotEmpty) {
-        products = products
-            .where((product) => product.name
-                .toLowerCase()
-                .contains(filter.query!.toLowerCase()))
-            .toList();
+        // Apply filters based on your original ProductModel fields
+        if (filter.query?.isNotEmpty ?? false) {
+          final query = filter.query!.toLowerCase();
+          products = products.where((product) => 
+              product.title.toLowerCase().contains(query)).toList();
+        }
+
+        if (filter.category?.isNotEmpty ?? false) {
+          products = products.where((product) => 
+              product.category.toLowerCase() == 
+              filter.category!.toLowerCase()).toList();
+        }
+
+        if (filter.minPrice != null) {
+          products = products.where((product) => 
+              product.price >= filter.minPrice!).toList();
+        }
+
+        if (filter.maxPrice != null) {
+          products = products.where((product) => 
+              product.price <= filter.maxPrice!).toList();
+        }
+
+        return products;
+      } else {
+        throw Exception('Failed to load products: ${response.statusCode}');
       }
-
-      if (filter.gender != null) {
-        products = products
-            .where((product) =>
-                product.gender?.toLowerCase() == filter.gender!.toLowerCase())
-            .toList();
-      }
-
-      if (filter.brands.isNotEmpty) {
-        products = products
-            .where((product) => filter.brands.contains(product.brand))
-            .toList();
-      }
-
-      // if (filter.priceRange != null) {
-      //   products = products
-      //       .where((product) =>
-      //           product.price >= filter.priceRange.start &&
-      //           product.price <= filter.priceRange.end)
-      //       .toList();
-      // }
-
-      return products;
-    } else {
-      throw Exception('Failed to load products');
+    } catch (e) {
+      throw Exception('Product search failed: ${e.toString()}');
     }
-  }
-
-  String? _extractGender(String category) {
-    category = category.toLowerCase();
-    if (category.contains("men")) return "Men";
-    if (category.contains("women")) return "Women";
-    return null;
   }
 }
