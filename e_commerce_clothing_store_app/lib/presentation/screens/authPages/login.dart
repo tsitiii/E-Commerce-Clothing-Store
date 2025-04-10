@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../data/service/api_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,6 +12,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isVisible = false;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +32,12 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(80),
-                  topRight: Radius.circular(0),
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
                 child: Form(
+                  key: _formKey,
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,6 +53,10 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 20),
                         const Text("User Name"),
                         TextFormField(
+                          controller: _usernameController,
+                          validator: (value) => value == null || value.isEmpty
+                              ? 'Please enter username'
+                              : null,
                           decoration: const InputDecoration(
                             hintText: "User Name",
                             prefixIcon: Icon(Icons.person),
@@ -61,6 +70,10 @@ class _LoginPageState extends State<LoginPage> {
                         const Text("Password"),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _passwordController,
+                          validator: (value) => value == null || value.isEmpty
+                              ? 'Please enter password'
+                              : null,
                           obscuringCharacter: "*",
                           obscureText: !isVisible,
                           decoration: InputDecoration(
@@ -71,11 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderSide: BorderSide(color: Colors.purple),
                             ),
                             suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isVisible = !isVisible;
-                                });
-                              },
+                              onPressed: () async {},
                               icon: Icon(
                                 isVisible
                                     ? Icons.visibility
@@ -84,29 +93,56 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 100,
-                        ),
+                        const SizedBox(height: 100),
                         Center(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 79, 33, 243),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              minimumSize: const Size(200, 60),
-                            ),
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          child: _isLoading
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      _isLoading = true;
+                                      final username =
+                                          _usernameController.text.trim();
+                                      final password =
+                                          _passwordController.text.trim();
+                                      final api = ApiService();
+                                      final token =
+                                          await api.login(username, password);
+                                      if (token != null) {
+                                        final prefs = await SharedPreferences
+                                            .getInstance();
+                                        await prefs.setString('token', token);
+                                        await prefs.setString('username',
+                                            username); // ← Add this line
+                                        Navigator.pushReplacementNamed(
+                                            context, '/home');
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content: Text("Login failed")),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 79, 33, 243),
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40, vertical: 15),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    minimumSize: const Size(200, 60),
+                                  ),
+                                  child: const Text(
+                                    "Login",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                         ),
                         const SizedBox(height: 15),
                         Row(
@@ -121,7 +157,9 @@ class _LoginPageState extends State<LoginPage> {
                                     color: Colors.black,
                                     fontSize: 17),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/signup');
+                              },
                             )
                           ],
                         ),

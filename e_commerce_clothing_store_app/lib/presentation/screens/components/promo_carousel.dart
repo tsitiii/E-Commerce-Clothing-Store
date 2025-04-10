@@ -22,16 +22,16 @@ class _PromoCarouselState extends State<PromoCarousel> {
       'image': 'images/jacket.webp',
       'subtitle': 'Win the Cup🏆',
       'description': 'Exciting rewards await!',
-      'cta': 'Enter Contest'
+      'cta': 'Buy it now'
     },
     {
-      'image': 'images/ear.jpeg',
+      'image': 'images/ear.jpg',
       'subtitle': '20% Off',
       'description': 'For children\'s books collection',
       'cta': 'Claim Offer'
     },
     {
-      'image': 'images/jordan.jpeg',
+      'image': 'images/cutehoddie.jpg',
       'subtitle': '20% Off',
       'description': 'For children\'s books collection',
       'cta': 'Claim Offer'

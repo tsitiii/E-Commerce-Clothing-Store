@@ -5,6 +5,7 @@ class FilterParams {
   final List<String> colors;
   final double? minPrice;
   final double? maxPrice;
+  final double? category;
 
   FilterParams({
     this.query,
@@ -13,5 +14,6 @@ class FilterParams {
     this.colors = const [],
     this.minPrice,
     this.maxPrice,
+    this.category,
   });
 }

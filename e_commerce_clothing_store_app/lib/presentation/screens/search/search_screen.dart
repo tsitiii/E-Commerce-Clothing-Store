@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import '../../../data/repositories/product_repository_impl.dart';
+import '../../../data/repository/product_repository_impl.dart';
 import '../../../domain/entities/product_entity.dart';
 import '../../blocs/search/search_cubit.dart';
 import '../../blocs/search/search_state.dart';
