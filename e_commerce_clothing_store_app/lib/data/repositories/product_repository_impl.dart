@@ -62,9 +62,26 @@ class ProductRepositoryImpl implements ProductRepository {
           .toList();
     }
 
-    if (params.category != null) {
+    if (params.gender != null) {
       products = products
-          .where((product) => product.category == params.category)
+          .where((product) => product.category
+              .toLowerCase()
+              .contains(params.gender!.toLowerCase()))
+          .toList();
+    }
+
+    if (params.brands.isNotEmpty) {
+      products = products
+          .where((product) => params.brands.any((brand) =>
+              product.title.toLowerCase().contains(brand.toLowerCase())))
+          .toList();
+    }
+
+    if (params.colors.isNotEmpty) {
+      products = products
+          .where((product) => params.colors.any((color) =>
+              product.title.toLowerCase().contains(color.toLowerCase()) ||
+              product.description.toLowerCase().contains(color.toLowerCase())))
           .toList();
     }
 

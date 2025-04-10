@@ -87,11 +87,12 @@ class _SearchScreenContent extends StatelessWidget {
   }
 
   void _showFilterScreen(BuildContext context) {
+    final searchCubit = BlocProvider.of<SearchCubit>(context);
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider.value(
-          value: BlocProvider.of<SearchCubit>(context),
+          value: searchCubit,
           child: const FilterScreen(),
         ),
       ),

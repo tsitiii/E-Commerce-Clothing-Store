@@ -26,7 +26,9 @@ class SearchCubit extends Cubit<SearchState> {
       final products = await _repository.searchProducts(
         FilterParams(
           query: state.query.isEmpty ? null : state.query,
-          category: state.selectedCategory,
+          gender: state.selectedGender,
+          brands: state.selectedBrands,
+          colors: state.selectedColors,
           minPrice: state.minPrice,
           maxPrice: state.maxPrice,
         ),
@@ -49,19 +51,43 @@ class SearchCubit extends Cubit<SearchState> {
     searchProducts();
   }
 
-  void updateCategory(String? category) {
-    emit(state.copyWith(selectedCategory: category));
-    searchProducts();
-  }
-
   void updatePriceRange(double min, double max) {
     emit(state.copyWith(minPrice: min, maxPrice: max));
     searchProducts();
   }
 
+  void updateGender(String? gender) {
+    emit(state.copyWith(selectedGender: gender));
+    searchProducts();
+  }
+
+  void updateBrand(String brand, bool selected) {
+    final updatedBrands = List<String>.from(state.selectedBrands);
+    if (selected) {
+      updatedBrands.add(brand);
+    } else {
+      updatedBrands.remove(brand);
+    }
+    emit(state.copyWith(selectedBrands: updatedBrands));
+    searchProducts();
+  }
+
+  void updateColor(String color, bool selected) {
+    final updatedColors = List<String>.from(state.selectedColors);
+    if (selected) {
+      updatedColors.add(color);
+    } else {
+      updatedColors.remove(color);
+    }
+    emit(state.copyWith(selectedColors: updatedColors));
+    searchProducts();
+  }
+
   void clearFilters() {
     emit(state.copyWith(
-      selectedCategory: null,
+      selectedGender: null,
+      selectedBrands: [],
+      selectedColors: [],
       minPrice: null,
       maxPrice: null,
     ));
