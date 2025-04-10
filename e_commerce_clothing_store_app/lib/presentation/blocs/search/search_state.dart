@@ -8,7 +8,9 @@ class SearchState {
   final SearchStatus status;
   final String? errorMessage;
   final List<String> categories;
-  final String? selectedCategory;
+  final String? selectedGender;
+  final List<String> selectedBrands;
+  final List<String> selectedColors;
   final double? minPrice;
   final double? maxPrice;
 
@@ -18,7 +20,9 @@ class SearchState {
     this.status = SearchStatus.initial,
     this.errorMessage,
     this.categories = const [],
-    this.selectedCategory,
+    this.selectedGender,
+    this.selectedBrands = const [],
+    this.selectedColors = const [],
     this.minPrice,
     this.maxPrice,
   });
@@ -29,7 +33,9 @@ class SearchState {
     SearchStatus? status,
     String? errorMessage,
     List<String>? categories,
-    String? selectedCategory,
+    String? selectedGender,
+    List<String>? selectedBrands,
+    List<String>? selectedColors,
     double? minPrice,
     double? maxPrice,
   }) {
@@ -39,7 +45,9 @@ class SearchState {
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       categories: categories ?? this.categories,
-      selectedCategory: selectedCategory ?? this.selectedCategory,
+      selectedGender: selectedGender ?? this.selectedGender,
+      selectedBrands: selectedBrands ?? this.selectedBrands,
+      selectedColors: selectedColors ?? this.selectedColors,
       minPrice: minPrice ?? this.minPrice,
       maxPrice: maxPrice ?? this.maxPrice,
     );
