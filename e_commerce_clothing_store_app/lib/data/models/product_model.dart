@@ -18,6 +18,7 @@ class ProductModel extends ProductEntity {
           image: image,
           rating: rating.rate,
           count: rating.count,
+          
         );
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {

@@ -38,23 +38,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final List<Map<String, dynamic>> products = [
-    {
-      'image': 'images/book1.jpeg',
-      'title': 'Book One',
-      'price': '120 Birr',
-    },
-    {
-      'image': 'images/book2.jpg',
-      'title': 'Book Two',
-      'price': '95 Birr',
-    },
-    {
-      'image': 'images/harry.jpg',
-      'title': 'Harry Potter',
-      'price': '150 Birr',
-    },
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +116,8 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // FIXED: Added SizedBox to constrain TextFormField height
               SizedBox(
-                height: 60, // Explicit height constraint
+                height: 60,
                 child: TextFormField(
                   enableSuggestions: true,
                   decoration: InputDecoration(

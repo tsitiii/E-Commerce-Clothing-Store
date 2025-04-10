@@ -249,7 +249,7 @@ class _SignupPageState extends State<SignupPage> {
         });
 
         if (result.success) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/login');
         }
       } catch (e) {
         setState(() {
