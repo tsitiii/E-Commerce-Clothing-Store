@@ -1,5 +1,7 @@
+import 'package:e_commerce_clothing_store_app/presentation/screens/History/order_history.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/login.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/signup.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/carts/cart_page.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/homepages/home.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/products/productList.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +22,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: '/signup',
+      initialRoute: '/cart',
       routes: {
         '/signup': (context) => const SignupPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/productList': (context) => const ProductListPage(),
+        '/cart': (context) => Cart(),
+        '/checkout': (context) => OrderHistoryPage()
       },
     );
   }
