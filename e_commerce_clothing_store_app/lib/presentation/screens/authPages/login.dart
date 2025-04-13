@@ -84,7 +84,11 @@ class _LoginPageState extends State<LoginPage> {
                               borderSide: BorderSide(color: Colors.purple),
                             ),
                             suffixIcon: IconButton(
-                              onPressed: () async {},
+                              onPressed: () async {
+                                setState(() {
+                                  isVisible = !isVisible;
+                                });
+                              },
                               icon: Icon(
                                 isVisible
                                     ? Icons.visibility
