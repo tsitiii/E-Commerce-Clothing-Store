@@ -1,15 +1,16 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../../domain/usecases/filter_params.dart';
 import '../models/product_model.dart';
 
-
-
 class ProductService {
   Future<List<ProductModel>> fetchProducts() async {
-    final response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
+    final response =
+        await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
     if (response.statusCode == 200) {
       final List data = json.decode(response.body);

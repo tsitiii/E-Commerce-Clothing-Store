@@ -78,6 +78,72 @@ class DetailsPage extends StatelessWidget {
               product.description,
               style: const TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 20),
+            const Text(
+              'Size',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                for (var size in [8, 10, 38, 40])
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        textStyle: const TextStyle(fontSize: 14),
+                      ),
+                      child: Text(size.toString()),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Add your "Buy Now" functionality here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple, // Set background color
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(12), // Add border radius
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 12,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple, // Background color for text
+                    borderRadius: BorderRadius.circular(12), // Border radius
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: const Text(
+                    'Buy Now',
+                    style: TextStyle(color: Colors.white), // Text color
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
