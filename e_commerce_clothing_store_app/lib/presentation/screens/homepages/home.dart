@@ -1,5 +1,6 @@
 import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/login.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/components/mostPopular.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,8 +38,6 @@ class _HomePageState extends State<HomePage> {
       imageUrl = prefs.getString('imageUrl') ?? '';
     });
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -130,12 +129,19 @@ class _HomePageState extends State<HomePage> {
                     ),
                     border: const OutlineInputBorder(),
                     prefixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SearchScreen(),
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.search),
                     ),
                     label: const Text("search here"),
                     contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10), // Better text alignment
+                        vertical: 10),
                   ),
                 ),
               ),
@@ -156,7 +162,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.home, color: Color.fromARGB(255, 98, 64, 251)),
           ),
           BottomNavigationBarItem(
-            label: 'Settings',
+            label: 'search',
             icon: Icon(Icons.search, color: Colors.blueGrey),
           ),
           BottomNavigationBarItem(
@@ -170,9 +176,21 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: currentIndex,
         onTap: (int index) {
-          setState(() {
-            currentIndex = index;
-          });
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SearchScreen()));
+          } else {
+            setState(() {
+              currentIndex = index;
+            });
+          }
         },
       ),
     );
