@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'checkout_page.dart';
 
 class Cart extends StatefulWidget {
@@ -13,7 +14,7 @@ class _CartState extends State<Cart> {
       'type': 'Rolex',
       'price': 40.0,
       'quantity': 1,
-      'image': 'images/watch.png'
+      'image': 'images/book2.jpg'
     },
     {
       'name': 'Airpods',
@@ -27,7 +28,7 @@ class _CartState extends State<Cart> {
       'type': 'puma',
       'price': 50.0,
       'quantity': 1,
-      'image': 'images/hoodie.jpg'
+      'image': 'images/cutehoodie.jpg'
     },
   ];
 
@@ -187,8 +188,9 @@ class _CartState extends State<Cart> {
                               top: 40,
                               child: GestureDetector(
                                 onTap: () => _removeItem(index),
-                                child: Image.asset('images/delete_icon.png',
-                                    width: 28, height: 28),
+                                // child: Image.asset('images/delete_icon.png',
+                                //     width: 28, height: 28),
+                                child: Icon(Icons.delete),
                               ),
                             ),
                             Positioned(
