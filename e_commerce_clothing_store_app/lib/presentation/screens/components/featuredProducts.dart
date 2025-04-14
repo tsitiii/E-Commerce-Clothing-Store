@@ -12,7 +12,7 @@ class FeaturedProducts extends StatefulWidget {
 
 class _FeaturedProductsState extends State<FeaturedProducts> {
   late Future<List<ProductModel>> _futureProducts;
-  final List<bool> _favorites = []; 
+  final List<bool> _favorites = [];
 
   @override
   void initState() {
@@ -86,11 +86,12 @@ class _FeaturedProductsState extends State<FeaturedProducts> {
                       Container(
                         width: 160,
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color: const Color.fromARGB(255, 243, 240, 240),
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
+                              color: const Color.fromARGB(255, 243, 242, 242)
+                                  .withOpacity(0.2),
                               blurRadius: 6,
                               offset: const Offset(0, 4),
                             ),
@@ -104,9 +105,9 @@ class _FeaturedProductsState extends State<FeaturedProducts> {
                                   top: Radius.circular(16)),
                               child: Image.network(
                                 product.image,
-                                height: 100,
-                                width: 160,
-                                fit: BoxFit.cover,
+                                height: 80,
+                                width: 110,
+                                fit: BoxFit.contain,
                               ),
                             ),
                             Padding(

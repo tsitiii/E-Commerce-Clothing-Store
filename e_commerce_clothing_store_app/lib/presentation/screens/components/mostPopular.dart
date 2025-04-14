@@ -103,7 +103,7 @@ class _MostPopularState extends State<MostPopular> {
                                       top: Radius.circular(8)),
                                   child: Image.network(
                                     product.image,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                     height: 120,
                                     width: double.infinity,
                                   ),

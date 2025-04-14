@@ -125,7 +125,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
                 top: 23,
                 child: Text(
                   item['name'],
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                     fontFamily: 'Poppins',
@@ -138,8 +138,8 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
                 top: 48,
                 child: Text(
                   item['type'] ?? '',
-                  style: TextStyle(
-                    color: const Color(0xFF9B9999),
+                  style: const TextStyle(
+                    color:  Color(0xFF9B9999),
                     fontSize: 12,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,

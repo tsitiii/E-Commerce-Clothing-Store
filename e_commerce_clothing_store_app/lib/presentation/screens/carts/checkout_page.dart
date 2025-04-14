@@ -61,7 +61,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Delivery Location
               Row(
                 children: [
                   Image.asset('images/map.jpg', width: 24, height: 24),

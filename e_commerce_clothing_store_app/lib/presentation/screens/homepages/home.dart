@@ -1,5 +1,7 @@
 import 'package:e_commerce_clothing_store_app/presentation/screens/authPages/login.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/carts/cart_page.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/components/mostPopular.dart';
+import 'package:e_commerce_clothing_store_app/presentation/screens/profiles/person.dart';
 import 'package:e_commerce_clothing_store_app/presentation/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     final storedUsername = prefs.getString('username');
     final token = prefs.getString('token');
+    final userid = prefs.getString('userId');
     print("stored token:$token");
     print("📦 Stored username: $storedUsername");
 
@@ -140,8 +143,7 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.search),
                     ),
                     label: const Text("search here"),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10),
                   ),
                 ),
               ),
@@ -180,12 +182,16 @@ class _HomePageState extends State<HomePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SearchScreen(),
+                builder: (context) => const SearchScreen(),
               ),
             );
           } else if (index == 2) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CartPage()));
+          } else if (index == 3) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SearchScreen()));
+                MaterialPageRoute(builder: (context) => const Person()));
+            Navigator.pop(context);
           } else {
             setState(() {
               currentIndex = index;
