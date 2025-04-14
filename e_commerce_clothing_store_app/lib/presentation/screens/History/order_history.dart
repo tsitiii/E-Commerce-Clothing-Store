@@ -16,7 +16,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
       'type': 'Rolex',
       'price': 40.0,
       'quantity': 1,
-      'image': 'images/watch.png'
+      'image': 'images/watch.jpg'
     },
     {
       'status': 'Completed',
@@ -32,7 +32,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
       'type': 'Puma',
       'price': 50.0,
       'quantity': 1,
-      'image': 'images/hoodie.jpg'
+      'image': 'images/watch2.jpg'
     },
   ];
 
@@ -139,7 +139,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage>
                 child: Text(
                   item['type'] ?? '',
                   style: const TextStyle(
-                    color:  Color(0xFF9B9999),
+                    color: Color(0xFF9B9999),
                     fontSize: 12,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
