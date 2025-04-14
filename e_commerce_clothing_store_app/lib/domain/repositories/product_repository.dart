@@ -6,4 +6,5 @@ abstract class ProductRepository {
   Future<List<ProductEntity>> getProductsByCategory(String category);
   Future<List<ProductEntity>> searchProducts(FilterParams params);
   Future<List<String>> getCategories();
+  Future<ProductEntity> getProductById(int id);
 }

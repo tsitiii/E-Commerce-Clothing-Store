@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/service/api_service.dart';
@@ -116,8 +117,13 @@ class _LoginPageState extends State<LoginPage> {
                                         final prefs = await SharedPreferences
                                             .getInstance();
                                         await prefs.setString('token', token);
-                                        await prefs.setString('username',
-                                            username); // ← Add this line
+                                        await prefs.setString(
+                                            'username', username);
+                                        Map<String, dynamic> decodedToken =
+                                            JwtDecoder.decode(token);
+                                        final userId =
+                                            decodedToken['sub'].toString();
+                                        await prefs.setString('userId', userId);
                                         Navigator.pushReplacementNamed(
                                             context, '/home');
                                       } else {

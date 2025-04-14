@@ -61,10 +61,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Delivery Location
               Row(
                 children: [
-                  Image.asset('images/map.png', width: 24, height: 24),
+                  Image.asset('images/map.jpg', width: 24, height: 24),
                   const SizedBox(width: 8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +93,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               // Delivery Time
               Row(
                 children: [
-                  Image.asset('images/clock.png', width: 24, height: 24),
+                  Image.asset('images/jordan.jpg', width: 24, height: 24),
                   const SizedBox(width: 8),
                   const Text(
                     '6:00 pm, Wednesday 20',
@@ -154,8 +153,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
               const SizedBox(height: 12),
               _buildPaymentOption('PayPal', 'images/paypal.png'),
-              _buildPaymentOption('Cash', 'images/cash.png'),
-              _buildPaymentOption('Credit Card', 'images/credit.png'),
+              _buildPaymentOption('Cash', 'images/cash.jpg'),
+              _buildPaymentOption('Credit Card', 'images/card.jpg'),
               const SizedBox(height: 12),
 
               // Add Payment

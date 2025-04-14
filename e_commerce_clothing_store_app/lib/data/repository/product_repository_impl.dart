@@ -19,9 +19,11 @@ class ProductService {
       throw Exception('Failed to fetch products');
     }
   }
+  
 }
 
 class ProductRepositoryImpl implements ProductRepository {
+
   final http.Client client;
   final String baseUrl;
   ProductRepositoryImpl({
@@ -39,6 +41,18 @@ class ProductRepositoryImpl implements ProductRepository {
       throw Exception('Failed to load products');
     }
   }
+
+  @override
+Future<ProductEntity> getProductById(int id) async {
+  final response = await client.get(Uri.parse('$baseUrl/products/$id'));
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> jsonMap = json.decode(response.body);
+    return ProductModel.fromJson(jsonMap);
+  } else {
+    throw Exception('Failed to load product by ID');
+  }
+}
+
 
   @override
   Future<List<ProductEntity>> getProductsByCategory(String category) async {

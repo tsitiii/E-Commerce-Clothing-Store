@@ -76,7 +76,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
                               Text(
                                 _cards[index]['subtitle']!,
                                 style: const TextStyle(
-                                  color: Colors.amber,
+                                  color: Color.fromARGB(255, 248, 247, 244),
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   height: 1.2,
@@ -94,7 +94,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.amber,
+                                  backgroundColor: const Color.fromARGB(255, 248, 248, 246),
                                   foregroundColor: Colors.black,
                                   minimumSize: const Size(120, 30),
                                   shape: RoundedRectangleBorder(
